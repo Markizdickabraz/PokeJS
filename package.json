@@ -1,11 +1,11 @@
 {
-  "name": "parcel-project-template",
+  "name": "pokejs",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://goitacademy.github.io/parcel-project-template",
+  "homepage": "https://Markizdickabraz.github.io/PokeJS",
   "scripts": {
     "start": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /parcel-project-template/"
+    "build": "parcel build src/*.html --public-url /PokeJS/"
   },
   "repository": {
     "type": "git",
