@@ -2,25 +2,54 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 .header__section {
   background-image: url("../images/poke_logo_360.jpg");
-  width: 1200px;
-  height: 440px;
+  height: 768px;
   margin: 0 auto;
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: 50% 50%;
 }
 @media screen and (min-width: 768px) {
   .header__section {
     background-image: url("../images/poke_logo_768.png");
-    height: 250px;
     margin: 0 auto;
+    background-size: contain;
   }
 }
 @media screen and (min-width: 1200px) {
   .header__section {
     background-image: url("../images/poke_logo.webp");
     margin: 0 auto;
+    background-size: contain;
+    height: 440px;
   }
+}
+
+.nav {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-left: 80%;
+  margin-right: 30px;
+}
+
+.header__content {
+  height: 768px;
+}
+@media screen and (min-width: 768px) {
+  .header__content {
+    height: 250px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .header__content {
+    height: 440px;
+  }
+}
+
+.header__form {
+  display: flex;
+  justify-content: center;
 }
 
 body {
@@ -46,9 +75,27 @@ ul {
 }
 
 .container {
-  width: 1200px;
+  max-width: 480px;
   padding-left: 15px;
   padding-right: 15px;
   margin-left: auto;
   margin-right: auto;
+}
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+.img {
+  display: block;
 }/*# sourceMappingURL=index.css.map */
