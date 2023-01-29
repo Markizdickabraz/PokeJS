@@ -1,0 +1,24 @@
+.poke__list {
+    padding-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.poke__item {
+    display: flex;
+    flex-direction: column;
+    width: 160px;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px #000000b8;
+
+    @media screen and(max-width:767px) {
+        width: 120px;
+    }
+}
+
+.title {
+    text-align: center;
+}

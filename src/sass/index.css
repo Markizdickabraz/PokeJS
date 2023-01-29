@@ -67,6 +67,32 @@
   height: 40px;
 }
 
+.poke__list {
+  padding-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.poke__item {
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7215686275);
+}
+@media screen and (max-width: 767px) {
+  .poke__item {
+    width: 120px;
+  }
+}
+
+.title {
+  text-align: center;
+}
+
 body {
   font-family: Roboto, Raleway, sans-serif;
   margin-left: auto;

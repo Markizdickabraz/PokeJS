@@ -27,7 +27,7 @@ async function renderStartPage(e){
             return `
                  <li class="poke__item">
             <img src="${sprites.front_default}" alt="${name}" class="img">
-            <p>${name}</p>
+            <p class="title">${name}</p>
             </li>
                 `;
         }).join("");
