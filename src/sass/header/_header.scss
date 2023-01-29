@@ -1,4 +1,4 @@
-.header__section {
+.header__container {
     background-image: url('../images/poke_logo_360.jpg');
     height: 768px;
     margin: 0 auto;
@@ -7,7 +7,7 @@
 
     @media screen and (min-width:768px) {
         background-image: url('../images/poke_logo_768.png');
-        // height: 250px;
+        height: 350px;
         margin: 0 auto;
         background-size: contain;
     }
@@ -31,19 +31,34 @@
     margin-right: 30px;
 }
 
-.header__content {
-    height: 768px;
-
-    @media screen and (min-width:768px) {
-        height: 250px;
-    }
-
-    @media screen and(min-width:1200px) {
-        height: 440px;
-    }
-}
-
 .header__form {
     display: flex;
     justify-content: center;
+    margin-top: 500px;
+    gap: 2px;
+
+    @media screen and(min-width:768px) {
+        margin-top: 220px;
+    }
+
+    @media screen and(min-width:1200px) {
+        margin-top: 320px;
+    }
+}
+
+.header__input {
+    height: 40px;
+    border: none;
+    border-bottom: 2px solid black;
+
+    &:focus {
+        border: none;
+        border-bottom: 2px solid lightblue;
+    }
+}
+
+.header__icon {
+    fill: black;
+    width: 40px;
+    height: 40px;
 }
