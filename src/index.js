@@ -45,7 +45,7 @@ galleryCards.addEventListener('click', renderCardInfo);
 
 
 async function fetchPokeInfo(name) {
-            const BASEURL = "https://pokeapi.co/api/v2/pokemon/";
+    const BASEURL = "https://pokeapi.co/api/v2/pokemon/";
     const responseCard = await axios.get(`${BASEURL}${name}`);
     cardInfo.push(responseCard.data)
     return cardInfo;
@@ -58,24 +58,33 @@ async function renderCardInfo(e) {
     toggleModal();
     name = e.target.alt;
     const dataCard = await fetchPokeInfo(name);
-    console.log('dataCard' , dataCard);
+    console.log('dataCard', dataCard);
     const markupCard = dataCard.map(
-        ({ name, sprites, types, abilities, stats }) => {
+        (dataCard) => {
+            let { name, sprites, types, abilities, stats } = dataCard;
             return `
             <h2 class ="caption">${name}</h2>
             <img src="${sprites.front_default}" alt="${name}" class="img poke__img">
             <ul class="modalCard__list">
             <li class="modalCard__item">Tipe: ${types[0].type.name}</li>
-            <li class="modalCard__item">Abilities: ${abilities[0].ability.name}, ${abilities[1].ability.name}</li>
+            <li class="modalCard__item">Abilities: ${abilities[0].ability.name}</li>
             <li class="modalCard__item">Attack: ${stats[0].base_stat}</li>
             </ul>
                 `;
         }).join("");
     
-        modalContent.innerHTML = markupCard;
+    modalContent.innerHTML = markupCard;
+   
 };
 
 
 function toggleModal() {
     modal.classList.toggle("is-hidden");
+    
 }
+
+modal.addEventListener('click', () => {
+    modal.classList.toggle("is-hidden");
+    modalContent.innerHTML = '';
+    cardInfo = [];
+})
