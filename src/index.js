@@ -19,7 +19,7 @@ async function startPageFetch(id) {
         id += 1;
         const response = await axios.get(`${BASEURL}${id}`);
         pokeArr.push(response.data);
-        // return response;
+
     }
     return pokeArr;
 }
@@ -41,27 +41,34 @@ async function renderStartPage(e){
 
 
 
-galleryCards.addEventListener('click', renderCardInfo);
-
-
-async function fetchPokeInfo(name) {
-    const BASEURL = "https://pokeapi.co/api/v2/pokemon/";
-    const responseCard = await axios.get(`${BASEURL}${name}`);
-    cardInfo.push(responseCard.data)
-    return cardInfo;
-}
-
-async function renderCardInfo(e) {
-     if (e.target.nodeName !== "IMG") {
-    return;
+galleryCards.addEventListener('click', async (e) => { 
+    if (e.target.nodeName !== "IMG") {
+        return;
     }
     toggleModal();
     name = e.target.alt;
     const dataCard = await fetchPokeInfo(name);
     console.log('dataCard', dataCard);
-    const markupCard = dataCard.map(
-        (dataCard) => {
-            let { name, sprites, types, abilities, stats } = dataCard;
+    renderCard(dataCard);
+});
+
+
+async function fetchPokeInfo(name) {
+    const BASEURL = "https://pokeapi.co/api/v2/pokemon/";
+    try {
+        const responseCard = await axios.get(`${BASEURL}${name}`);
+        cardInfo.push(responseCard.data);
+        return cardInfo;
+    }
+    catch (error) {
+    console.log(error);
+  }
+};
+
+
+function renderCard(dataCard) {
+       const markupCard = dataCard.map(
+        ({ name, sprites, types, abilities, stats }) => {
             return `
             <h2 class ="caption">${name}</h2>
             <img src="${sprites.front_default}" alt="${name}" class="img poke__img">
@@ -72,11 +79,8 @@ async function renderCardInfo(e) {
             </ul>
                 `;
         }).join("");
-    
     modalContent.innerHTML = markupCard;
-   
 };
-
 
 function toggleModal() {
     modal.classList.toggle("is-hidden");
@@ -88,3 +92,16 @@ modal.addEventListener('click', () => {
     modalContent.innerHTML = '';
     cardInfo = [];
 })
+
+input.addEventListener('input', renderCard);
+
+// async function renderCard(e) {
+
+//     e.preventDefault();
+//     name = input.value;
+//     if (name === ' ') {
+//         modal.classList.toggle("is-hidden");
+//         modalContent.innerHTML = '';
+//         cardInfo = [];
+//     }
+// };
