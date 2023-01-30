@@ -1,6 +1,7 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
 @import './header/header';
 @import './main/main';
+@import './main/modal';
 
 body {
     font-family: Roboto, Raleway, sans-serif;
@@ -33,18 +34,20 @@ ul {
 
     @media screen and(min-width:768px) {
         max-width: 768px;
-        padding-right: 15px;
-        padding-left: 15px;
+
     }
 
     @media screen and(min-width:1200px) {
         max-width: 1200px;
-        padding-left: 15px;
-        padding-right: 15px;
-
     }
 }
 
 .img {
     display: block;
 }
+
+@function getColor($key) {
+    @return map-get($colors, $key);
+}
+
+$cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);

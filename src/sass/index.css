@@ -67,11 +67,16 @@
   height: 40px;
 }
 
+.main__section {
+  background-color: #dddddd;
+}
+
 .poke__list {
   padding-top: 50px;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
 
 .poke__item {
@@ -82,6 +87,11 @@
   padding: 10px;
   border-radius: 10px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7215686275);
+  background-color: #fff;
+}
+.poke__item:hover, .poke__item:focus {
+  transform: scale(1.05);
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 @media screen and (max-width: 767px) {
   .poke__item {
@@ -91,6 +101,70 @@
 
 .title {
   text-align: center;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #d1d1d1;
+  opacity: 1;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal {
+  border-radius: 20px;
+  width: 96%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  transform: translate(-50%, -50%) scale(1);
+  padding: 40px;
+}
+@media screen and (min-width: 480px) {
+  .modal {
+    width: 450px;
+    height: 609px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .modal {
+    width: 528px;
+    height: 581px;
+  }
+}
+
+.modal__content {
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(238, 238, 238);
+}
+
+.poke__img {
+  width: 320px;
+  margin: 0;
+}
+
+.modalCard__list {
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  background-color: #c9c9c9;
+  padding: 15px;
 }
 
 body {
@@ -125,15 +199,11 @@ ul {
 @media screen and (min-width: 768px) {
   .container {
     max-width: 768px;
-    padding-right: 15px;
-    padding-left: 15px;
   }
 }
 @media screen and (min-width: 1200px) {
   .container {
     max-width: 1200px;
-    padding-left: 15px;
-    padding-right: 15px;
   }
 }
 

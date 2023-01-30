@@ -1,12 +1,16 @@
 import axios from "axios";
 
 const input = document.querySelector('.js-header__input');
-console.log(input);
 const pokeList = document.querySelector('.poke__list');
-
-renderStartPage();
+const modal = document.querySelector("[data-modal]");
+const modalContent = document.querySelector('.modal__content');
+const galleryCards = document.querySelector('.main__section');
 
 let pokeArr = [];
+let name = "";
+let cardInfo = [];
+
+renderStartPage();
 
 async function startPageFetch(id) {
     id = 0;
@@ -20,6 +24,7 @@ async function startPageFetch(id) {
     return pokeArr;
 }
 
+
 async function renderStartPage(e){
     const data = await startPageFetch();
     const markup = data.map(
@@ -32,4 +37,45 @@ async function renderStartPage(e){
                 `;
         }).join("");
         pokeList.innerHTML = markup;
+}
+
+
+
+galleryCards.addEventListener('click', renderCardInfo);
+
+
+async function fetchPokeInfo(name) {
+            const BASEURL = "https://pokeapi.co/api/v2/pokemon/";
+    const responseCard = await axios.get(`${BASEURL}${name}`);
+    cardInfo.push(responseCard.data)
+    return cardInfo;
+}
+
+async function renderCardInfo(e) {
+     if (e.target.nodeName !== "IMG") {
+    return;
+    }
+    toggleModal();
+    name = e.target.alt;
+    const dataCard = await fetchPokeInfo(name);
+    console.log('dataCard' , dataCard);
+    const markupCard = dataCard.map(
+        ({ name, sprites, types, abilities, stats }) => {
+            return `
+            <h2 class ="caption">${name}</h2>
+            <img src="${sprites.front_default}" alt="${name}" class="img poke__img">
+            <ul class="modalCard__list">
+            <li class="modalCard__item">Tipe: ${types[0].type.name}</li>
+            <li class="modalCard__item">Abilities: ${abilities[0].ability.name}, ${abilities[1].ability.name}</li>
+            <li class="modalCard__item">Attack: ${stats[0].base_stat}</li>
+            </ul>
+                `;
+        }).join("");
+    
+        modalContent.innerHTML = markupCard;
+};
+
+
+function toggleModal() {
+    modal.classList.toggle("is-hidden");
 }
