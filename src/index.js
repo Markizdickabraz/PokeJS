@@ -36,7 +36,8 @@ async function renderStartPage(e){
             </li>
                 `;
         }).join("");
-        pokeList.innerHTML = markup;
+    pokeList.innerHTML = markup;
+
 }
 
 
@@ -45,7 +46,6 @@ galleryCards.addEventListener('click', async (e) => {
     if (e.target.nodeName !== "IMG") {
         return;
     }
-    toggleModal();
     name = e.target.alt;
     const dataCard = await fetchPokeInfo(name);
     console.log('dataCard', dataCard);
@@ -80,6 +80,7 @@ function renderCard(dataCard) {
                 `;
         }).join("");
     modalContent.innerHTML = markupCard;
+    toggleModal();
 };
 
 function toggleModal() {
@@ -91,17 +92,13 @@ modal.addEventListener('click', () => {
     modal.classList.toggle("is-hidden");
     modalContent.innerHTML = '';
     cardInfo = [];
+    input.value = '';
 })
 
-input.addEventListener('input', renderCard);
-
-// async function renderCard(e) {
-
-//     e.preventDefault();
-//     name = input.value;
-//     if (name === ' ') {
-//         modal.classList.toggle("is-hidden");
-//         modalContent.innerHTML = '';
-//         cardInfo = [];
-//     }
-// };
+input.addEventListener('input', async (e) => {
+    name = input.value;
+    const dataCard = await fetchPokeInfo(name);
+    console.log('dataCard', dataCard);
+    renderCard(dataCard);
+    renderCard();
+});

@@ -37,17 +37,17 @@
 .header__form {
   display: flex;
   justify-content: center;
-  margin-top: 500px;
-  gap: 2px;
+  padding-top: 500px;
+  gap: 8px;
 }
 @media screen and (min-width: 768px) {
   .header__form {
-    margin-top: 220px;
+    padding-top: 220px;
   }
 }
 @media screen and (min-width: 1200px) {
   .header__form {
-    margin-top: 320px;
+    padding-top: 320px;
   }
 }
 
@@ -55,16 +55,11 @@
   height: 40px;
   border: none;
   border-bottom: 2px solid black;
+  padding-left: 12px;
 }
 .header__input:focus {
   border: none;
   border-bottom: 2px solid lightblue;
-}
-
-.header__icon {
-  fill: black;
-  width: 40px;
-  height: 40px;
 }
 
 .main__section {
