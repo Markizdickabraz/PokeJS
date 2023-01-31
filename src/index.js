@@ -98,7 +98,7 @@ form.addEventListener('submit', async (e) => {
     if (input.value === '') {
         return;
     }
-    name = input.value;
+    name = input.value.toLowerCase().trim();
     const dataCard = await fetch(name);
     cardInfoArr.push(dataCard);
     renderCard(cardInfoArr);
