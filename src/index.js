@@ -5,27 +5,41 @@ const pokeList = document.querySelector('.poke__list');
 const modal = document.querySelector("[data-modal]");
 const modalContent = document.querySelector('.modal__content');
 const galleryCards = document.querySelector('.main__section');
+const form = document.querySelector('.js-form');
+const loadMoreBtn = document.querySelector('.js-load-more__btn');
 
+let name = '';
+let cardInfoArr = [];
 let pokeArr = [];
-let name = "";
-let cardInfo = [];
+let limit = 20;
+let e = 1;
 
-renderStartPage();
+renderPage();
 
+
+// fecth function
+
+async function fetch(name) {
+        const BASEURL = "https://pokeapi.co/api/v2/pokemon/";
+        const response = await axios.get(`${BASEURL}${name}`);
+        return response.data;
+    }
+
+// startPageFetch
 async function startPageFetch(id) {
     id = 0;
-    for (let i = 1; i <=20; i+=1) {
-        const BASEURL = "https://pokeapi.co/api/v2/pokemon/";
-        id += 1;
-        const response = await axios.get(`${BASEURL}${id}`);
-        pokeArr.push(response.data);
+    for (let i = e; i <= limit; i += 1) {
+        id = i;
+        const responseData = await fetch(id);
+        pokeArr.push(responseData);
 
     }
     return pokeArr;
 }
 
 
-async function renderStartPage(e){
+// renderPage
+async function renderPage(){
     const data = await startPageFetch();
     const markup = data.map(
         ({ name, sprites }) => {
@@ -36,10 +50,8 @@ async function renderStartPage(e){
             </li>
                 `;
         }).join("");
-    pokeList.innerHTML = markup;
-
+    pokeList.insertAdjacentHTML('beforeend', markup);
 }
-
 
 
 galleryCards.addEventListener('click', async (e) => { 
@@ -47,27 +59,14 @@ galleryCards.addEventListener('click', async (e) => {
         return;
     }
     name = e.target.alt;
-    const dataCard = await fetchPokeInfo(name);
-    console.log('dataCard', dataCard);
-    renderCard(dataCard);
+    const dataCard = await fetch(name);
+    cardInfoArr.push(dataCard);
+    renderCard(cardInfoArr);
 });
 
 
-async function fetchPokeInfo(name) {
-    const BASEURL = "https://pokeapi.co/api/v2/pokemon/";
-    try {
-        const responseCard = await axios.get(`${BASEURL}${name}`);
-        cardInfo.push(responseCard.data);
-        return cardInfo;
-    }
-    catch (error) {
-    console.log(error);
-  }
-};
-
-
-function renderCard(dataCard) {
-       const markupCard = dataCard.map(
+function renderCard(cardInfoArr) {
+       const markupCard = cardInfoArr.map(
         ({ name, sprites, types, abilities, stats }) => {
             return `
             <h2 class ="caption">${name}</h2>
@@ -85,20 +84,32 @@ function renderCard(dataCard) {
 
 function toggleModal() {
     modal.classList.toggle("is-hidden");
-    
 }
 
 modal.addEventListener('click', () => {
-    modal.classList.toggle("is-hidden");
+    toggleModal();
     modalContent.innerHTML = '';
-    cardInfo = [];
+    cardInfoArr = [];
     input.value = '';
 })
 
-input.addEventListener('input', async (e) => {
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (input.value === '') {
+        return;
+    }
     name = input.value;
-    const dataCard = await fetchPokeInfo(name);
-    console.log('dataCard', dataCard);
-    renderCard(dataCard);
-    renderCard();
+    const dataCard = await fetch(name);
+    cardInfoArr.push(dataCard);
+    renderCard(cardInfoArr);
 });
+
+loadMoreBtn.addEventListener('click', async (evt) => {
+    evt.preventDefault();
+    e += 20;
+    limit += 20;
+    const dataMoreCard = await startPageFetch();
+    pokeArr = [];
+    renderPage(dataMoreCard);
+});
+

@@ -5,11 +5,16 @@
         <p>HOME</p>
         <p>MY POKE</p>
       </nav>
-      <div class="header__form">
-        <form>
-          <input type="text" class="header__input js-header__input" autocomplete="off" placeholder="Search pokemon...">
-        </form>
-      </div>
+
+      <form class="header__form js-form">
+        <input type="text" class="header__input js-header__input" autocomplete="off" placeholder="Search pokemon...">
+        <button type="submit" class="input__btn js-input__btn">
+          <svg width="40" height="40" class="input__svg">
+            <use href="./images/svg/glass.svg#icon-search"></use>
+          </svg>
+        </button>
+      </form>
+
     </div>
   </div>
 </header>
@@ -19,7 +24,7 @@
     </ul>
   </div>
   <div class="container__btn">
-    <button type="button" class="load-more__btn">Load more</button>
+    <button type="button" class="load-more__btn js-load-more__btn">Load more</button>
   </div>
 </main>
 <footer class="footer">
