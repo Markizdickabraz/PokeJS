@@ -11,7 +11,7 @@ const loadMoreBtn = document.querySelector('.js-load-more__btn');
 let name = '';
 let cardInfoArr = [];
 let pokeArr = [];
-let limit = 20;
+let limit = 15;
 let e = 1;
 
 renderPage();
@@ -27,7 +27,6 @@ async function fetch(name) {
 
 // startPageFetch
 async function startPageFetch(id) {
-    id = 0;
     for (let i = e; i <= limit; i += 1) {
         id = i;
         const responseData = await fetch(id);
@@ -104,12 +103,11 @@ form.addEventListener('submit', async (e) => {
     renderCard(cardInfoArr);
 });
 
-loadMoreBtn.addEventListener('click', async (evt) => {
+loadMoreBtn.addEventListener('click', (evt) => {
     evt.preventDefault();
-    e += 20;
-    limit += 20;
-    const dataMoreCard = await startPageFetch();
+    e += 15;
+    limit += 15;
     pokeArr = [];
-    renderPage(dataMoreCard);
+    renderPage();
 });
 
