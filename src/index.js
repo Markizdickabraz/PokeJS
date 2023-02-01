@@ -50,6 +50,7 @@ async function renderPage(){
                 `;
         }).join("");
     pokeList.insertAdjacentHTML('beforeend', markup);
+    loadMoreBtn.disabled = false;
 }
 
 
@@ -104,6 +105,7 @@ form.addEventListener('submit', async (e) => {
 });
 
 loadMoreBtn.addEventListener('click', (evt) => {
+    loadMoreBtn.disabled = true;
     evt.preventDefault();
     e += 15;
     limit += 15;
