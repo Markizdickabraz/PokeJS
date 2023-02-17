@@ -26,12 +26,13 @@
 
 .nav {
   padding-top: 15px;
-  padding-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-left: 80%;
-  margin-right: 30px;
+  margin-left: 70%;
+  margin-right: 20%;
+}
+
+.nav__btn {
+  background-color: #fff;
+  border-radius: 8px;
 }
 
 .header__form {
@@ -116,11 +117,11 @@
   max-width: 1600px;
   display: flex;
   justify-content: center;
-  padding-top: 30px;
   padding-bottom: 20px;
 }
 
-.load-more__btn {
+.btn {
+  margin-top: 12px;
   background-color: #1fa6d3;
   border: none;
   border-radius: 8px;
@@ -128,7 +129,7 @@
   cursor: pointer;
   padding: 15px 25px 15px 25px;
 }
-.load-more__btn:hover, .load-more__btn:focus {
+.btn:hover, .btn:focus {
   background-color: #048bc0;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }

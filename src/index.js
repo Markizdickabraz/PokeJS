@@ -7,6 +7,8 @@ const modalContent = document.querySelector('.modal__content');
 const galleryCards = document.querySelector('.main__section');
 const form = document.querySelector('.js-form');
 const loadMoreBtn = document.querySelector('.js-load-more__btn');
+const POKEDEX_KEY = 'pokedex';
+let pokedexArr = [];
 
 let name = '';
 let cardInfoArr = [];
@@ -64,7 +66,7 @@ galleryCards.addEventListener('click', async (e) => {
     renderCard(cardInfoArr);
 });
 
-
+// modal
 function renderCard(cardInfoArr) {
        const markupCard = cardInfoArr.map(
         ({ name, sprites, types, abilities, stats }) => {
@@ -76,23 +78,31 @@ function renderCard(cardInfoArr) {
             <li class="modalCard__item">Abilities: ${abilities[0].ability.name}</li>
             <li class="modalCard__item">Attack: ${stats[0].base_stat}</li>
             </ul>
-                `;
+            <button type='button' class ='btn js-moad-btn'>Add to Pokedex</button>
+                `;  
         }).join("");
     modalContent.innerHTML = markupCard;
     toggleModal();
 };
-
+// open/close modal
 function toggleModal() {
     modal.classList.toggle("is-hidden");
 }
-
-modal.addEventListener('click', () => {
-    toggleModal();
-    modalContent.innerHTML = '';
-    cardInfoArr = [];
-    input.value = '';
+// close modal
+modal.addEventListener('click', (e) => {
+    console.dir(e.target);
+    if (e.target.classList[0] === 'backdrop') {
+        toggleModal();
+        modalContent.innerHTML = '';
+        cardInfoArr = [];
+        input.value = '';
+    }
+    if (e.target.nodeName === 'BUTTON') {
+        // addToPokedex();
+    }
+    return;
 })
-
+// secrch input logic
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (input.value === '') {
@@ -104,6 +114,7 @@ form.addEventListener('submit', async (e) => {
     renderCard(cardInfoArr);
 });
 
+// load more button logic
 loadMoreBtn.addEventListener('click', (evt) => {
     loadMoreBtn.disabled = true;
     evt.preventDefault();
@@ -113,3 +124,8 @@ loadMoreBtn.addEventListener('click', (evt) => {
     renderPage();
 });
 
+// add pocedex logic
+// function addToPokedex() {
+//    const local= localStorage.setItem(POKEDEX_KEY, JSON.stringify(markupCard));
+//     console.log(local);
+// }
