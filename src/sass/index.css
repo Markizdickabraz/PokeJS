@@ -25,14 +25,8 @@
 }
 
 .nav {
-  padding-top: 15px;
-  margin-left: 70%;
+  margin-left: 80%;
   margin-right: 20%;
-}
-
-.nav__btn {
-  background-color: #fff;
-  border-radius: 8px;
 }
 
 .header__form {
@@ -163,13 +157,13 @@
 @media screen and (min-width: 480px) {
   .modal {
     width: 450px;
-    height: 609px;
+    height: 630px;
   }
 }
 @media screen and (min-width: 1200px) {
   .modal {
     width: 528px;
-    height: 581px;
+    height: 630px;
   }
 }
 

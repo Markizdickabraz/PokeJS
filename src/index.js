@@ -98,7 +98,7 @@ modal.addEventListener('click', (e) => {
         input.value = '';
     }
     if (e.target.nodeName === 'BUTTON') {
-        // addToPokedex();
+        // addToPokedex()
     }
     return;
 })
