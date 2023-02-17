@@ -7,6 +7,8 @@ const modalContent = document.querySelector('.modal__content');
 const galleryCards = document.querySelector('.main__section');
 const form = document.querySelector('.js-form');
 const loadMoreBtn = document.querySelector('.js-load-more__btn');
+const myPokeBtn = document.querySelector('.nav__btn');
+
 const POKEDEX_KEY = 'pokedex';
 let pokedexArr = [];
 
@@ -43,9 +45,9 @@ async function startPageFetch(id) {
 async function renderPage(){
     const data = await startPageFetch();
     const markup = data.map(
-        ({ name, sprites }) => {
+        ({ name, sprites,id }) => {
             return `
-                 <li class="poke__item">
+                 <li class="poke__item" id = ${id}>
             <img src="${sprites.front_default}" alt="${name}" class="img">
             <p class="title">${name}</p>
             </li>
@@ -63,17 +65,19 @@ galleryCards.addEventListener('click', async (e) => {
     name = e.target.alt;
     const dataCard = await fetch(name);
     cardInfoArr.push(dataCard);
-    renderCard(cardInfoArr);
+    renderCard(cardInfoArr); 
+    console.dir(cardInfoArr);   
 });
 
 // modal
 function renderCard(cardInfoArr) {
        const markupCard = cardInfoArr.map(
-        ({ name, sprites, types, abilities, stats }) => {
+        ({ name, sprites, types, abilities, stats ,id}) => {
             return `
-            <h2 class ="caption">${name}</h2>
+           
+           <h2 class ="caption">${name}</h2>
             <img src="${sprites.front_default}" alt="${name}" class="img poke__img">
-            <ul class="modalCard__list">
+            <ul class="modalCard__list" id=${id}>
             <li class="modalCard__item">Tipe: ${types[0].type.name}</li>
             <li class="modalCard__item">Abilities: ${abilities[0].ability.name}</li>
             <li class="modalCard__item">Attack: ${stats[0].base_stat}</li>
@@ -82,14 +86,14 @@ function renderCard(cardInfoArr) {
                 `;  
         }).join("");
     modalContent.innerHTML = markupCard;
-    toggleModal();
+    toggleModal(); 
 };
 // open/close modal
 function toggleModal() {
     modal.classList.toggle("is-hidden");
 }
 // close modal
-modal.addEventListener('click', (e) => {
+modal.addEventListener('click', (e) => {    
     console.dir(e.target);
     if (e.target.classList[0] === 'backdrop') {
         toggleModal();
@@ -98,7 +102,9 @@ modal.addEventListener('click', (e) => {
         input.value = '';
     }
     if (e.target.nodeName === 'BUTTON') {
-        // addToPokedex()
+        if (e.target.id !== e.target.previousElementSibling.id) {
+            addToPokedex();
+        }
     }
     return;
 })
@@ -125,7 +131,26 @@ loadMoreBtn.addEventListener('click', (evt) => {
 });
 
 // add pocedex logic
-// function addToPokedex() {
-//    const local= localStorage.setItem(POKEDEX_KEY, JSON.stringify(markupCard));
-//     console.log(local);
-// }
+function addToPokedex(e) {
+    pokedexArr.push(cardInfoArr[0]);
+    localStorage.setItem(POKEDEX_KEY, JSON.stringify(pokedexArr)); 
+}
+
+// render pokedex
+myPokeBtn.addEventListener('click', renderPokedexPage);
+
+// render pokedex logic
+function renderPokedexPage() {
+    const pokedexGet = localStorage.getItem(POKEDEX_KEY);
+    const pokedexParse = JSON.parse(pokedexGet);
+        const markupPokedex = pokedexParse.map(
+            ({ name, sprites , id}) => {
+                return `
+                 <li class="poke__item" id = ${id}>
+            <img src="${sprites.front_default}" alt="${name}" class="img">
+            <p class="title">${name}</p>
+            </li>
+                `;
+            }).join("");
+        pokeList.innerHTML = markupPokedex;
+};
