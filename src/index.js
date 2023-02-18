@@ -104,28 +104,17 @@ modal.addEventListener('click', (e) => {
         input.value = '';
     }
     if (e.target.nodeName === 'BUTTON') {
-//         if (pokedexArr === [ ]) {
-//             addToPokedex();
-// }
-        // console.log(typeof(e.target.previousElementSibling.id));
+
+        console.dir(e.target);
         if (pokedexArr.length === 0) {
             addToPokedex();
         }
-        for (let i = 0; i < pokedexArr.length; i += 1) {
-            // console.log(pokedexArr[i]);
-            if (pokedexArr[i].id === Number(e.target.previousElementSibling.id)) {
-                return;
-            }
-                if (pokedexArr[i].id !== Number(e.target.previousElementSibling.id)) {
-                    console.log(pokedexArr[i].id);
-                    console.log(Number(e.target.previousElementSibling.id));
-                    addToPokedex();
-                }
+    
 }
 
-}
 return;
-    }
+}
+    
 )
 
 // secrch input logic
