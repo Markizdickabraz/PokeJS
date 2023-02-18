@@ -102,6 +102,7 @@ modal.addEventListener('click', (e) => {
         input.value = '';
     }
     if (e.target.nodeName === 'BUTTON') {
+        
         if (e.target.id !== e.target.previousElementSibling.id) {
             addToPokedex();
         }
