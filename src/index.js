@@ -11,6 +11,7 @@ const myPokeBtn = document.querySelector('.nav__btn');
 
 const POKEDEX_KEY = 'pokedex';
 let pokedexArr = [];
+// let pokeInStorage = [];
 
 let name = '';
 let cardInfoArr = [];
@@ -65,8 +66,7 @@ galleryCards.addEventListener('click', async (e) => {
     name = e.target.alt;
     const dataCard = await fetch(name);
     cardInfoArr.push(dataCard);
-    renderCard(cardInfoArr); 
-    console.dir(cardInfoArr);   
+    renderCard(cardInfoArr);  
 });
 
 // modal
@@ -88,13 +88,15 @@ function renderCard(cardInfoArr) {
     modalContent.innerHTML = markupCard;
     toggleModal(); 
 };
+
 // open/close modal
 function toggleModal() {
     modal.classList.toggle("is-hidden");
 }
+
 // close modal
 modal.addEventListener('click', (e) => {    
-    console.dir(e.target);
+    // console.dir(e.target);
     if (e.target.classList[0] === 'backdrop') {
         toggleModal();
         modalContent.innerHTML = '';
@@ -102,13 +104,30 @@ modal.addEventListener('click', (e) => {
         input.value = '';
     }
     if (e.target.nodeName === 'BUTTON') {
-        
-        if (e.target.id !== e.target.previousElementSibling.id) {
+//         if (pokedexArr === [ ]) {
+//             addToPokedex();
+// }
+        // console.log(typeof(e.target.previousElementSibling.id));
+        if (pokedexArr.length === 0) {
             addToPokedex();
         }
+        for (let i = 0; i < pokedexArr.length; i += 1) {
+            // console.log(pokedexArr[i]);
+            if (pokedexArr[i].id === Number(e.target.previousElementSibling.id)) {
+                return;
+            }
+                if (pokedexArr[i].id !== Number(e.target.previousElementSibling.id)) {
+                    console.log(pokedexArr[i].id);
+                    console.log(Number(e.target.previousElementSibling.id));
+                    addToPokedex();
+                }
+}
+
+}
+return;
     }
-    return;
-})
+)
+
 // secrch input logic
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -132,7 +151,7 @@ loadMoreBtn.addEventListener('click', (evt) => {
 });
 
 // add pocedex logic
-function addToPokedex(e) {
+function addToPokedex() {
     pokedexArr.push(cardInfoArr[0]);
     localStorage.setItem(POKEDEX_KEY, JSON.stringify(pokedexArr)); 
 }
